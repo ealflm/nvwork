@@ -3,7 +3,6 @@ local M = {}
 M.setup = function()
     local config_file_path = vim.fn.expand("~/.nvworkconfig")
     vim.g.nvwork_selected_file = vim.fn.readfile(config_file_path)[1]
-    print(vim.g.nvwork_selected_file)
 end
 
 M.open_nvwork_selected_file = function()
@@ -16,18 +15,9 @@ M.open_nvwork_selected_file = function()
     end
 end
 
-M.get_nvwork_files = function()
-    local directory = vim.fn.expand("~/.nvwork/")
-    local file_paths = {}
-
-    for _, entry in ipairs(vim.fn.readdir(directory)) do
-        local full_path = directory .. entry
-        if vim.fn.isdirectory(full_path) == 0 then
-            table.insert(file_paths, full_path)
-        end
-    end
-
-    return file_paths
+M.set_nvwork_selected_file = function(file_path) 
+    vim.g.nvwork_selected_file = file_path
+    require("nvwork.utils").replace_file_content(vim.fn.expand("~/.nvworkconfig"), file_path)
 end
 
 return M
