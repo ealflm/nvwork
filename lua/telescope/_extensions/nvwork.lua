@@ -30,10 +30,10 @@ return require("telescope").register_extension {
 
             local file_path = cwd .. search_text
 
+            require("nvwork").set_nvwork_selected_file(file_path)
+
             local create_cmd = "silent !New-Item -ItemType File -Force -Path " .. file_path
             vim.cmd(create_cmd)
-
-            require("nvwork").set_nvwork_selected_file(file_path)
           end
 
           map('i', '<A-CR>', create_new)
