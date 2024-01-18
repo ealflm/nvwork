@@ -7,7 +7,7 @@ local sorters = require("telescope.sorters")
 local make_entry = require("telescope.make_entry")
 local api = vim.api
 
-local cwd = vim.fn.expand("~/.nvwork/")
+local cwd = vim.fn.expand("~/Documents/NvWork/data/")
 
 return require("telescope").register_extension {
   exports = {
@@ -19,7 +19,8 @@ return require("telescope").register_extension {
           actions.select_default:replace(function()
             actions.close(prompt_bufnr)
             local selection = action_state.get_selected_entry()
-            local file_path = getmetatable(selection).cwd .. selection[1]
+            local file_path = selection[1]
+
             require("nvwork").set_nvwork_selected_file(file_path)
           end)
 
